@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="DataSimulatorApp.Views.SampleListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+
+            <TextBlock Text="Registered Samples"
+                       FontSize="24"
+                       FontWeight="Bold"/>
+
+            <Button Content="Refresh"
+                    Width="100"
+                    Margin="20 0 0 0"
+                    Command="{Binding RefreshCommand}"/>
+
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  Margin="0 20 0 0"
+                  ItemsSource="{Binding Samples}"
+                  AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Header="ID"
+                    Binding="{Binding Id}"/>
+
+                <DataGridTextColumn
+                    Header="Sample Code"
+                    Binding="{Binding SampleCode}"/>
+
+                <DataGridTextColumn
+                    Header="Protein"
+                    Binding="{Binding ProteinName}"/>
+
+                <DataGridTextColumn
+                    Header="Status"
+                    Binding="{Binding Status}"/>
+
+                <DataGridTextColumn
+                    Header="Classification"
+                    Binding="{Binding Classification}"/>
+
+                <DataGridTextColumn
+                    Header="Confidence (%)"
+                    Binding="{Binding Confidence}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+
+</UserControl>
