@@ -17,7 +17,7 @@ public class SampleApiService : ISampleService
     {
         _httpClient = new HttpClient();
         _httpClient.BaseAddress =
-            new Uri("http://localhost:8080/api");
+            new Uri("http://localhost:8080");
     }
 
     public async Task<bool> CreateSampleAsync(SampleRequest request)
@@ -26,8 +26,9 @@ public class SampleApiService : ISampleService
             new MultipartFormDataContent();
 
         content.Add(
-            new StringContent(request.SampleCode),
-            "sampleCode");
+            new StringContent(
+                request.SampleCode.ToString()),
+            "sampleId");
 
         content.Add(
             new StringContent(request.ProteinName),
@@ -35,13 +36,8 @@ public class SampleApiService : ISampleService
 
         content.Add(
             new StringContent(
-                request.CaptureDate.ToString("o")),
+                request.CaptureDate.ToString("yyyy-MM-dd'T'HH:mm:ss")),
             "captureDate");
-
-        content.Add(
-            new StringContent(
-                request.IncubationPeriod.ToString()),
-            "incubationPeriod");
 
         content.Add(
             new StringContent(
@@ -73,7 +69,7 @@ public class SampleApiService : ISampleService
 
         var response =
             await _httpClient.PostAsync(
-                "/samples",
+                "/add-sample",
                 content);
 
         return response.IsSuccessStatusCode;
@@ -84,7 +80,7 @@ public class SampleApiService : ISampleService
     {
         return await _httpClient
             .GetFromJsonAsync<List<SampleResponse>>
-                ("/samples")
+                ("/get-sample")
             ?? new List<SampleResponse>();
     }
 }

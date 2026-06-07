@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataSimulatorApp.Models;
-    public class SampleRequest
-    {
-        public string SampleCode { get; set; }
 
-        public string ProteinName { get; set; }
+public class SampleRequest
+{
+    public int SampleCode { get; set; }
 
-        public DateTime CaptureDate { get; set; }
+    public string ProteinName { get; set; } = string.Empty;
 
-        public int IncubationPeriod { get; set; }
+    public DateTime CaptureDate { get; set; }  = DateTime.Now;
 
-        public double GravityLevel { get; set; }
+    public double GravityLevel { get; set; }
 
-        public double Temperature { get; set; }
+    public double Temperature { get; set; }
 
-        public double MechanicalVibration { get; set; }
+    public double MechanicalVibration { get; set; }
 
-        public string ImagePath { get; set; }
-    }
+    public string ImagePath { get; set; } = string.Empty;
+}

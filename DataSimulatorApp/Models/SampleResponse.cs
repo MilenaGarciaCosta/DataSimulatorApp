@@ -9,7 +9,7 @@ namespace DataSimulatorApp.Models;
     {
         public long Id { get; set; }
 
-        public string SampleCode { get; set; }
+        public int SampleCode { get; set; }
 
         public string ProteinName { get; set; }
 

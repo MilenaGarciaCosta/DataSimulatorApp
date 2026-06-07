@@ -11,7 +11,6 @@ namespace DataSimulatorApp.Models;
         public int SampleId { get; set; }
         public string ProteinName { get; set; }
         public DateTime CaptureDate { get; set; }
-        public int IncubationPeriod { get; set; }
         public Decimal GravityLevel { get; set; }
         public Decimal Temperature { get; set; }
         public Decimal MechanicalVibration { get; set; }
