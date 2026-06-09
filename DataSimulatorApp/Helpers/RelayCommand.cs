@@ -24,8 +24,7 @@ public class RelayCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
-        return _canExecute == null
-            || _canExecute();
+        return _canExecute == null || _canExecute();
     }
 
     public async void Execute(object? parameter)
@@ -36,7 +35,6 @@ public class RelayCommand : ICommand
     public void RaiseCanExecuteChanged()
     {
         CanExecuteChanged?.Invoke(
-            this,
-            EventArgs.Empty);
+            this, EventArgs.Empty);
     }
 }

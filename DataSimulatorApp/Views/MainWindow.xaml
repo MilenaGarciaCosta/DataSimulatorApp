@@ -5,18 +5,65 @@
         xmlns:views="clr-namespace:DataSimulatorApp.Views"
         Title="CrystalMind Mission Control"
         Height="700"
-        Width="1200">
+        Width="1200"
+        Background="#FF0D1117"
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
-
         <DataTemplate DataType="{x:Type vm:CreateSampleViewModel}">
             <views:CreateSampleView/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:SampleListViewModel}">
             <views:SampleListView/>
         </DataTemplate>
 
+        <!-- Nav Button Style -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF8B949E"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="NavBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="12 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Active indicator bar -->
+                                <Rectangle x:Name="ActiveBar"
+                                           Grid.Column="0"
+                                           Fill="Transparent"
+                                           RadiusX="2" RadiusY="2"
+                                           Margin="0 8 10 8"/>
+                                <ContentPresenter Grid.Column="1"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NavBorder" Property="Background" Value="#1A58A6FF"/>
+                                <Setter Property="Foreground" Value="#FFE6EDF3"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="NavBorder" Property="Background" Value="#2A58A6FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -24,43 +71,84 @@
     </Window.DataContext>
 
     <Grid>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- MENU -->
-
+        <!-- SIDEBAR -->
         <Border Grid.Column="0"
-                Background="#20232A">
+                Background="#FF161B22"
+                BorderBrush="#FF30363D"
+                BorderThickness="0 0 1 0">
+            <DockPanel>
 
-            <StackPanel Margin="20">
+                <!-- Logo / App Name -->
+                <Border DockPanel.Dock="Top"
+                        Padding="20 24 20 20"
+                        BorderBrush="#FF30363D"
+                        BorderThickness="0 0 0 1">
+                    <StackPanel>
+                        <TextBlock Text="CRYSTALMIND"
+                                   FontFamily="Segoe UI"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#FF58A6FF"/>
+                        <TextBlock Text="Mission Control"
+                                   FontFamily="Segoe UI"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#FFE6EDF3"
+                                   Margin="0 2 0 0"/>
+                    </StackPanel>
+                </Border>
 
-                <TextBlock Text="CrystalMind"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           Margin="0 0 0 40"/>
+                <!-- Version / status footer -->
+                <Border DockPanel.Dock="Bottom"
+                        Padding="20 14"
+                        BorderBrush="#FF30363D"
+                        BorderThickness="0 1 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="7" Height="7"
+                                 Fill="#FF3FB950"
+                                 VerticalAlignment="Center"
+                                 Margin="0 0 7 0"/>
+                        <TextBlock Text="System Online"
+                                   FontFamily="Segoe UI"
+                                   FontSize="11"
+                                   Foreground="#FF8B949E"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
 
-                <Button Content="New Sample"
-                        Height="40"
-                        Margin="0 0 0 10"
-                        Command="{Binding ShowCreateSampleCommand}"/>
+                <!-- Navigation -->
+                <StackPanel Margin="12 16 12 0">
+                    <TextBlock Text="NAVIGATION"
+                               FontFamily="Segoe UI"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               Foreground="#FF484F58"
+                               Margin="12 0 0 8"/>
 
-                <Button Content="Consult Samples"
-                        Height="40"
-                        Command="{Binding ShowSampleListCommand}"/>
+                    <Button Content="New Sample"
+                            Style="{StaticResource NavButtonStyle}"
+                            Margin="0 2"
+                            Command="{Binding ShowCreateSampleCommand}"/>
 
-            </StackPanel>
+                    <Button Content="Consult Samples"
+                            Style="{StaticResource NavButtonStyle}"
+                            Margin="0 2"
+                            Command="{Binding ShowSampleListCommand}"/>
+                </StackPanel>
 
+            </DockPanel>
         </Border>
 
-        <!-- CONTENT -->
-
-        <ContentControl Grid.Column="1"
-                        Content="{Binding CurrentView}" />
+        <!-- CONTENT AREA -->
+        <Border Grid.Column="1"
+                Background="#FF0D1117">
+            <ContentControl Content="{Binding CurrentView}"/>
+        </Border>
 
     </Grid>
-
 </Window>

@@ -69,7 +69,7 @@ public class SampleApiService : ISampleService
 
         var response =
             await _httpClient.PostAsync(
-                "/add-sample",
+                "/samples",
                 content);
 
         return response.IsSuccessStatusCode;
@@ -80,7 +80,7 @@ public class SampleApiService : ISampleService
     {
         return await _httpClient
             .GetFromJsonAsync<List<SampleResponse>>
-                ("/get-sample")
+                ("/samples")
             ?? new List<SampleResponse>();
     }
 }

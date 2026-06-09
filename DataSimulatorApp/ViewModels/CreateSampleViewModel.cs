@@ -63,23 +63,17 @@ public class CreateSampleViewModel : INotifyPropertyChanged
 
     private Task SelectImageAsync()
     {
-        OpenFileDialog dialog =
-            new OpenFileDialog();
+        OpenFileDialog dialog = new OpenFileDialog();
 
-        dialog.Filter =
-            "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+        dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
 
         if (dialog.ShowDialog() == true)
         {
-            SelectedImagePath =
-                dialog.FileName;
+            SelectedImagePath =dialog.FileName;
 
-            Sample.ImagePath =
-                dialog.FileName;
+            Sample.ImagePath = dialog.FileName;
 
-            PreviewImage =
-                new BitmapImage(
-                    new Uri(dialog.FileName));
+            PreviewImage = new BitmapImage(new Uri(dialog.FileName));
         }
 
         return Task.CompletedTask;
@@ -87,50 +81,37 @@ public class CreateSampleViewModel : INotifyPropertyChanged
 
     private async Task RegisterSampleAsync()
     {
-        bool success =
-            await _sampleService
-                .CreateSampleAsync(
-                    Sample);
+        bool success = await _sampleService.CreateSampleAsync(Sample);
 
         if (success)
         {
-            MessageBox.Show(
-                "Sample registered successfully.");
+            MessageBox.Show("Sample registered successfully.");
 
             ClearForm();
         }
         else
         {
-            MessageBox.Show(
-                "Error registering sample.");
+            MessageBox.Show("Error registering sample.");
         }
     }
 
     private void ClearForm()
     {
-        Sample =
-            new SampleRequest();
+        Sample =new SampleRequest();
 
-        SelectedImagePath =
-            string.Empty;
+        SelectedImagePath = string.Empty;
 
-        PreviewImage =
-            null;
+        PreviewImage = null;
 
-        OnPropertyChanged(
-            nameof(Sample));
+        OnPropertyChanged(nameof(Sample));
     }
 
-    public event PropertyChangedEventHandler?
-        PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged(
-        [CallerMemberName]
-        string propertyName = "")
+        [CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(
-            this,
-            new PropertyChangedEventArgs(
-                propertyName));
+            this, new PropertyChangedEventArgs(propertyName));
     }
 }
