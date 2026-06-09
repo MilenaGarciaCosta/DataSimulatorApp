@@ -32,34 +32,21 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="CaretBrush" Value="{StaticResource AccentBlueBrush}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Margin="{TemplateBinding Padding}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="{StaticResource AccentBlueBrush}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#FF58A6FF"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource AccentBlueBrush}"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#FF58A6FF"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- DatePicker Style -->
         <Style x:Key="FieldDatePickerStyle" TargetType="DatePicker">
             <Setter Property="Background" Value="{StaticResource BgElevatedBrush}"/>
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Height" Value="36"/>
